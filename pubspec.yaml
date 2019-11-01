@@ -1,0 +1,47 @@
+name: conduite
+description: A place to share your knowledge.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  redux: ^3.0.0
+  flutter_redux: ^0.5.3
+  redux_thunk: ^0.2.1
+  redux_persist_flutter: ^0.8.2
+  redux_persist: ^0.8.2
+  redux_logging: ^0.3.0
+  flutter_markdown: ^0.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/smiley-cyrus.jpg
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  fonts:
+    - family: Titillium
+      fonts:
+        - asset: fonts/TitilliumWeb-Black.ttf
+        - asset: fonts/TitilliumWeb-Bold.ttf
+        - asset: fonts/TitilliumWeb-Light.ttf
+        - asset: fonts/TitilliumWeb-Regular.ttf
+        - asset: fonts/TitilliumWeb-SemiBold.ttf
