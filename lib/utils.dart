@@ -9,3 +9,4 @@ part 'shared/utils/get_image.dart';
 part 'shared/utils/math.dart';
 part 'shared/utils/navigator.dart';
 part 'shared/utils/serialize.dart';
+part 'shared/utils/dialog.dart';
