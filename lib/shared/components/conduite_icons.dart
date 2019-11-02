@@ -11,6 +11,7 @@ abstract class ConduiteIcons {
   static const IconData edit = IconData(0xf417, fontFamily: iconFont, fontPackage: iconFontPackage);
   static const IconData add = IconData(0xf2c7, fontFamily: iconFont, fontPackage: iconFontPackage);
   static const IconData settings = IconData(0xf4a6, fontFamily: iconFont, fontPackage: iconFontPackage);
+  static const IconData cog = IconData(0xf411, fontFamily: iconFont, fontPackage: iconFontPackage);
   static const IconData feed = IconData(0xf471, fontFamily: iconFont, fontPackage: iconFontPackage);
   static const IconData account = IconData(0xf41A, fontFamily: iconFont, fontPackage: iconFontPackage);
 }

@@ -1,8 +1,9 @@
 import 'package:conduite/components.dart';
 import 'package:conduite/features/auth/sign_in_screen.dart';
-import 'package:conduite/features/home/account_tab.dart';
+import 'package:conduite/features/home/settings_tab.dart';
 import 'package:conduite/features/home/feed_tab.dart';
 import 'package:conduite/models.dart';
+import 'package:conduite/services.dart';
 import 'package:conduite/store.dart';
 import 'package:conduite/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: ConduiteIcons.feed,
       ),
       _TabItem(
-        title: "Account",
-        screen: AccountTab(),
-        icon: ConduiteIcons.user,
+        title: "Settings",
+        screen: SettingsTab(),
+        icon: ConduiteIcons.cog,
       ),
     ];
     super.initState();
@@ -71,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       onInit: (store) {
-        store.dispatch(loadArticles(context));
+        if (store.state.auth.isAuthenticated)
+          api.setToken(store.state.auth.user.token);
       },
       converter: (store) {
         return _ViewModel(
@@ -98,13 +100,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          floatingActionButton: _vm.user == null
-              ? FloatingActionButton(
-                  child: Icon(ConduiteIcons.add, color: Colors.white),
-                  onPressed: () {},
-                )
+          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+          floatingActionButton: _vm.user != null
+              ? Visibility(
+                visible: _vm.index != 2,
+                child: FloatingActionButton(
+                    child: Icon(ConduiteIcons.add, color: Colors.white),
+                    onPressed: () {},
+                  ),
+              )
               : null,
-          bottomNavigationBar: _vm.user == null
+          bottomNavigationBar: _vm.user != null
               ? CupertinoTabBar(
                   currentIndex: _vm.index,
                   backgroundColor: Colors.white,
@@ -120,12 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   }).toList(),
                 )
               : null,
-          body: PageView.builder(
-            controller: _controller,
-            itemCount: _tabs.length,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (_, index) => _tabs[index].screen,
-          ),
+          body: _vm.user != null
+              ? PageView.builder(
+                  controller: _controller,
+                  itemCount: _tabs.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (_, index) => _tabs[index].screen,
+                )
+              : FeedTab(isGlobal: true),
         );
       },
     );

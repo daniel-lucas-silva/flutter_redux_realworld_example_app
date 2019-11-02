@@ -31,14 +31,14 @@ class AuthState {
   factory AuthState.fromJSON(Map<String, dynamic> json) {
     return AuthState(
       isAuthenticated: json['isAuthenticated'],
-      user: json['user'],
+      user: User.fromJson(json['user']),
     );
   }
 
   Map<String, dynamic> toJSON() {
     return <String, dynamic>{
-      'isAuthenticated': this.isAuthenticated,
-      'user': this.user,
+      'isAuthenticated': isAuthenticated,
+      'user': user.toJson(),
     };
   }
 }
