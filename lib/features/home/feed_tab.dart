@@ -10,9 +10,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 class _ViewModel {
   final List<Article> articles;
+  final bool isLoggedIn;
   final dispatch;
 
-  _ViewModel(this.articles, this.dispatch);
+  _ViewModel(this.articles, this.dispatch, this.isLoggedIn);
 }
 
 class FeedTab extends StatefulWidget {
@@ -58,6 +59,7 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
               ? store.state.articles.global
               : store.state.articles.feed,
           store.dispatch,
+          store.state.auth.user != null,
         );
       },
       builder: (context, vm) {
@@ -85,7 +87,7 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
                   name: article.author.username,
                   date: DateTime.parse(article.createdAt),
                   image: getImage(article.author.image),
-                  favorited: article.favorited,
+                  favorited: vm.isLoggedIn ? article.favorited : false,
                   favoritesCount: article.favoritesCount,
                   onFavoriteTap: () {},
                 ),

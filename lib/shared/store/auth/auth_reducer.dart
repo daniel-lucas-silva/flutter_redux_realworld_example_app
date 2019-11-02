@@ -19,7 +19,6 @@ AuthState _userLoginSuccess(AuthState auth, UserLoginSuccess action) {
   return auth.copyWith(
     isAuthenticated: true,
     isAuthenticating: false,
-    user: action.user,
   );
 }
 

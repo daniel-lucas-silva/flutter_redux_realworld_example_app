@@ -1,5 +1,7 @@
 part of store;
 
+class ClearArticles {}
+
 class LoadArticlesRequest {}
 
 class LoadGlobalArticlesSuccess {
@@ -20,12 +22,6 @@ class LoadArticlesError {
   LoadArticlesError(this.error);
 }
 
-class SetCurrentArticle {
-  final Article article;
-
-  SetCurrentArticle(this.article);
-}
-
 loadArticles(
   BuildContext context, {
   bool isFeed: false,
@@ -34,15 +30,13 @@ loadArticles(
   return (Store<AppState> store) async {
     store.dispatch(LoadArticlesRequest());
     try {
-
-      if(isFeed) {
+      if (isFeed) {
         final json = await ArticlesService.feed();
         List<Article> articles = (json['articles'] as List)
             .map<Article>((a) => Article.fromJson(a))
             .toList();
         store.dispatch(LoadFeedArticlesSuccess(articles));
-      }
-      else {
+      } else {
         final json = await ArticlesService.all();
         List<Article> articles = (json['articles'] as List)
             .map<Article>((a) => Article.fromJson(a))
@@ -56,18 +50,35 @@ loadArticles(
     }
   };
 }
+class CreateArticleRequest {}
+class CreateArticleSuccess {
+  final Article article;
 
-Function refreshArticles(
-  BuildContext context, {
-  @required Completer completer,
-}) {
-  return (Store<AppState> store) {
-    store.dispatch(new LoadArticlesRequest());
-  };
+  CreateArticleSuccess(this.article);
+}
+class CreateArticleError {
+  final String error;
+  CreateArticleError(this.error);
 }
 
-final Function(BuildContext, Article) setCurrentArticle = (context, article) {
-  return (Store<AppState> store) {
-    store.dispatch(SetCurrentArticle(article));
+createArticle(
+  BuildContext context,
+  Completer completer, {
+  @required String title,
+  @required String description,
+  @required String body,
+  List<String> tagList,
+}) {
+  return (Store<AppState> store) async {
+    store.dispatch(CreateArticleRequest());
+    try {
+      final res = await ArticlesService.create(title, description, body, tagList);
+      final article = Article.fromJson(res['article']);
+      store.dispatch(CreateArticleSuccess(article));
+      completer.complete("Article created!");
+    } catch (e) {
+      if (e is DioError) store.dispatch(CreateArticleError(e.message));
+      completer.completeError(Exception("Could not be created."));
+    }
   };
-};
+}

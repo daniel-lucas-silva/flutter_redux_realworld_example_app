@@ -1,4 +1,5 @@
 import 'package:conduite/components.dart';
+import 'package:conduite/features/article/article_form.dart';
 import 'package:conduite/features/auth/sign_in_screen.dart';
 import 'package:conduite/features/home/settings_tab.dart';
 import 'package:conduite/features/home/feed_tab.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _controller = PageController(keepPage: true);
+    _controller = PageController();
     _tabs = [
       _TabItem(
         title: "Global Feed",
@@ -106,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 visible: _vm.index != 2,
                 child: FloatingActionButton(
                     child: Icon(ConduiteIcons.add, color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateTo(context, ArticleForm());
+                    },
                   ),
               )
               : null,

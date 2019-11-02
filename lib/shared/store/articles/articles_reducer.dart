@@ -1,12 +1,20 @@
 part of store;
 
 Reducer<ArticlesState> articlesReducer = combineReducers([
+  TypedReducer<ArticlesState, ClearArticles>(_clearArticles),
   TypedReducer<ArticlesState, LoadArticlesRequest>(_loadRequest),
   TypedReducer<ArticlesState, LoadGlobalArticlesSuccess>(_loadGlobalSuccess),
   TypedReducer<ArticlesState, LoadFeedArticlesSuccess>(_loadFeedSuccess),
   TypedReducer<ArticlesState, LoadArticlesError>(_loadError),
-  TypedReducer<ArticlesState, SetCurrentArticle>(_setCurrent),
+  TypedReducer<ArticlesState, CreateArticleSuccess>(_createArticleSuccess),
 ]);
+
+ArticlesState _clearArticles(ArticlesState articles, ClearArticles action) {
+  return articles.copyWith(
+//    global: null,
+    feed: null,
+  );
+}
 
 ArticlesState _loadRequest(ArticlesState articles, LoadArticlesRequest action) {
   return articles.copyWith(
@@ -32,6 +40,10 @@ ArticlesState _loadError(ArticlesState articles, LoadArticlesError action) {
   return articles.copyWith(loading: false, error: action.error);
 }
 
-ArticlesState _setCurrent(ArticlesState articles, SetCurrentArticle action) {
-  return articles.copyWith(current: action.article.title);
+ArticlesState _createArticleSuccess(ArticlesState articles, CreateArticleSuccess action) {
+  var items = articles.global;
+  items.insert(0, action.article);
+  return articles.copyWith(
+    global: items,
+  );
 }
