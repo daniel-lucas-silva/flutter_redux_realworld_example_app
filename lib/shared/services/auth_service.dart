@@ -1,11 +1,28 @@
 part of services;
 
 class AuthService {
-  static login(data) async => await api.post('/users/login', data: data);
+  static login(email, password) async => await api.post(
+        '/users/login',
+        data: {
+          "user": {
+            "email": email,
+            "password": password,
+          }
+        },
+      );
 
-  static register(data) async => await api.post('/users', data: data);
+  static register(email, password, username) async => await api.post(
+        '/users',
+        data: {
+          "user": {
+            "email": email,
+            "password": password,
+            "username": username,
+          }
+        },
+      );
 
-  static update(data) async => await api.put('/user', data: data);
+  static update(data) async => await api.put('/user', data: { "user": data });
 
   static current() async => await api.get('/user');
 }

@@ -14,9 +14,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreeState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  String email;
-  String password;
+  final _formData = {};
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +34,14 @@ class _SignInScreeState extends State<SignInScreen> {
             children: <Widget>[
               TextFormField(
                 autofocus: true,
-                onSaved: (value) => email = value,
+                onSaved: (value) => _formData.addAll({"email": value}),
                 decoration: InputDecoration(labelText: "Email"),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => value.isEmpty ? 'Required!' : null,
               ),
               SizedBox(height: 10),
               TextFormField(
-                onSaved: (value) => password = value,
+                onSaved: (value) => _formData.addAll({"password": value}),
                 decoration: InputDecoration(labelText: "Password"),
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
@@ -64,20 +62,26 @@ class _SignInScreeState extends State<SignInScreen> {
                     ),
                   ),
                   StoreConnector<AppState, dynamic>(
-                    converter: (store) => store.dispatch,
-                    builder: (context, dispatch) {
-                      return Flexible(
-                        flex: 1,
-                        child: Button(
-                          child: Text("Sign In"),
-                          textColor: Colors.white,
-                          onPressed: () {
-                            dispatch();
-                          },
-                        ),
-                      );
-                    }
-                  ),
+                      converter: (store) => store.dispatch,
+                      builder: (context, dispatch) {
+                        return Flexible(
+                          flex: 1,
+                          child: Button(
+                            child: Text("Sign In"),
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
+                                dispatch(signIn(
+                                  context,
+                                  username: _formData['email'],
+                                  password: _formData['password'],
+                                ));
+                              }
+                            },
+                          ),
+                        );
+                      }),
                 ],
               ),
             ],
