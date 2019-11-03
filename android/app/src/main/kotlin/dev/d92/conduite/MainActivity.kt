@@ -1,4 +1,4 @@
-package io.realworld.conduite
+package dev.d92.conduite
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity
