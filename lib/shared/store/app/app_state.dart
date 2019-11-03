@@ -5,13 +5,16 @@ class AppState {
   final int index;
   final AuthState auth;
   final ArticlesState articles;
+  final CommentsState comments;
 
   AppState({
     this.index = 0,
     AuthState auth,
     ArticlesState articles,
+    CommentsState comments,
   })  : auth = auth ?? AuthState(),
-        articles = articles ?? ArticlesState();
+        articles = articles ?? ArticlesState(),
+        comments = comments ?? CommentsState();
 
   static AppState rehydrationJSON(dynamic json) {
     return json != null
@@ -34,11 +37,13 @@ class AppState {
     int index,
     AuthState auth,
     ArticlesState articles,
+    CommentsState comments,
   }) {
     return AppState(
       index: index ?? 0,
       auth: auth ?? this.auth,
       articles: articles ?? this.articles,
+      comments: comments ?? this.comments,
     );
   }
 }

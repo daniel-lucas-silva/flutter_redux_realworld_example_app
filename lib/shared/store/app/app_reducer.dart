@@ -15,5 +15,6 @@ AppState appReducer(AppState state, action) {
     index: state.index,
     auth: authReducer(state.auth, action),
     articles: articlesReducer(state.articles, action),
+    comments: commentsReducer(state.comments, action),
   );
 }
