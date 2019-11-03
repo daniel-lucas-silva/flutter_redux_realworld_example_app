@@ -37,13 +37,11 @@ class AppState {
     int index,
     AuthState auth,
     ArticlesState articles,
-    CommentsState comments,
   }) {
     return AppState(
       index: index ?? 0,
       auth: auth ?? this.auth,
       articles: articles ?? this.articles,
-      comments: comments ?? this.comments,
     );
   }
 }

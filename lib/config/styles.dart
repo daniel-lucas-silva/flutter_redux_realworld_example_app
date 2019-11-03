@@ -18,7 +18,8 @@ abstract class Styles {
   );
   static const TextStyle h4 = TextStyle(
     fontSize: 16,
-    color: Colors.grey,
+    color: Colors.black54,
+    fontWeight: FontWeight.w500,
   );
   static const TextStyle h5 = TextStyle(
     fontSize: 14,

@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:conduite/components.dart';
-import 'package:conduite/features/article/article_screen.dart';
 import 'package:conduite/features/profile/profile_screen.dart';
 import 'package:conduite/models.dart';
 import 'package:conduite/store.dart';
 import 'package:conduite/utils.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -18,19 +16,19 @@ class _ViewModel {
   _ViewModel(this.articles, this.dispatch, this.isLoggedIn);
 }
 
-class FeedTab extends StatefulWidget {
-  final bool isGlobal;
+class ProfileFeedTab extends StatefulWidget {
+  final bool favorited;
 
-  const FeedTab({
+  const ProfileFeedTab({
     Key key,
-    this.isGlobal = false,
+    this.favorited = false,
   }) : super(key: key);
 
   @override
-  _FeedTabState createState() => _FeedTabState();
+  _ProfileFeedTabState createState() => _ProfileFeedTabState();
 }
 
-class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
+class _ProfileFeedTabState extends State<ProfileFeedTab> with AutomaticKeepAliveClientMixin {
   ScrollController _controller;
 
   @override
@@ -52,12 +50,12 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
       onInit: (store) {
         store.dispatch(loadArticles(
           context,
-          isFeed: !widget.isGlobal,
+          isFeed: !widget.favorited,
         ));
       },
       converter: (store) {
         return _ViewModel(
-          widget.isGlobal
+          widget.favorited
               ? store.state.articles.global
               : store.state.articles.feed,
           store.dispatch,
@@ -70,7 +68,7 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
             final completer = new Completer();
             vm.dispatch(loadArticles(
               context,
-              isFeed: !widget.isGlobal,
+              isFeed: !widget.favorited,
               completer: completer,
             ));
             return completer.future;
@@ -86,7 +84,7 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
               return ArticleTile(
                 head: ArticleTileHead(
                   onAuthorTap: () {
-                    navigateTo(context, ProfileScreen(author: article.author));
+                    navigateTo(context, ProfileScreen());
                   },
                   name: article.author.username,
                   date: DateTime.parse(article.createdAt),
@@ -98,17 +96,14 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
                 body: ArticleTileBody(
                   title: article.title,
                   description: article.description,
-                  onTap: () {
-                    navigateTo(context, ArticleScreen(article));
-                  },
                 ),
                 foot: ArticleTileFoot(
                   onTap: () {},
                   tags: article.tags
                       .map((t) => Tag(
-                            child: Text(t),
-                            onTap: () {},
-                          ))
+                    child: Text(t),
+                    onTap: () {},
+                  ))
                       .toList(),
                 ),
               );

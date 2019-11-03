@@ -15,4 +15,9 @@ final theme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder()
   ),
+  tabBarTheme: TabBarTheme(
+    labelColor: ConduiteColors.green,
+    unselectedLabelColor: Colors.grey
+  ),
+  cursorColor: ConduiteColors.green,
 );

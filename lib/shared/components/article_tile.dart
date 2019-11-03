@@ -94,24 +94,29 @@ class ArticleTileHead extends StatelessWidget {
 class ArticleTileBody extends StatelessWidget {
   final String title;
   final String description;
+  final VoidCallback onTap;
 
   const ArticleTileBody({
     Key key,
     @required this.title,
     @required this.description,
+    @required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 13.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title ?? '', style: Styles.h3),
-          Text(description ?? '', style: Styles.h5),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 13.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(title ?? '', style: Styles.h3),
+            Text(description ?? '', style: Styles.h5),
+          ],
+        ),
       ),
     );
   }

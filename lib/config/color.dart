@@ -29,4 +29,7 @@ abstract class ConduiteColors {
     },
   );
   static const int _greenAccentValue = 0xFFA6FFA6;
+
+  static const border = const Color(0xFFe5e5e5);
+  static const bgGrey = const Color(0xFFf5f5f5);
 }

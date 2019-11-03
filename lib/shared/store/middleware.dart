@@ -3,7 +3,7 @@ part of store;
 final persistor = Persistor<AppState>(
   storage: FlutterStorage(
     key: 'conduite',
-    location: FlutterSaveLocation.documentFile,
+    location: FlutterSaveLocation.sharedPreferences,
   ),
   serializer: JsonSerializer<AppState>(AppState.rehydrationJSON),
 );

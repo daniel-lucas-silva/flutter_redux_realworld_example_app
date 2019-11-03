@@ -29,3 +29,9 @@ part 'shared/store/auth/auth_reducer.dart';
 part 'shared/store/articles/articles_state.dart';
 part 'shared/store/articles/articles_actions.dart';
 part 'shared/store/articles/articles_reducer.dart';
+
+part 'shared/store/comment/comment_state.dart';
+part 'shared/store/comment/comment_actions.dart';
+part 'shared/store/comment/comment_reducer.dart';
+
+typedef Dispatch = void Function(dynamic);
