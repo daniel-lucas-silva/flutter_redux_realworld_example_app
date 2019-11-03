@@ -9,12 +9,15 @@ class Comment {
 
   Comment({this.id, this.body, this.author, this.createdAt, this.updatedAt});
 
-  Comment.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        body = json['body'],
-        author = Author.fromJson(json['author']),
-        createdAt = json['createdAt'],
-        updatedAt = json['updatedAt'];
+  static fromJson(Map<String, dynamic> json) {
+    return Comment(
+        id: json['id'],
+        body: json['body'],
+        author: Author.fromJson(json['author']),
+        createdAt: json['createdAt'],
+        updatedAt: json['updatedAt']
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,
