@@ -4,8 +4,8 @@ class Comment {
   final int id;
   final String body;
   final Author author;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Comment({this.id, this.body, this.author, this.createdAt, this.updatedAt});
 
@@ -14,8 +14,8 @@ class Comment {
         id: json['id'],
         body: json['body'],
         author: Author.fromJson(json['author']),
-        createdAt: json['createdAt'],
-        updatedAt: json['updatedAt']
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
     );
   }
 

@@ -9,8 +9,8 @@ class Article {
   final bool favorited;
   final int favoritesCount;
   final List tags;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Article({
     this.title,
@@ -35,8 +35,8 @@ class Article {
         favorited: json['favorited'],
         favoritesCount: json['favoritesCount'],
         tags: json['tagList'],
-        createdAt: json['createdAt'],
-        updatedAt: json['updatedAt']
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
     );
   }
 
@@ -47,7 +47,7 @@ class Article {
     'body': body,
     'author': author.toJson(),
     'tagList': tags,
-    'createdAt': createdAt,
-    'updatedAt': updatedAt,
+    'createdAt': createdAt.toIso8601String(),
+    'updatedAt': updatedAt.toIso8601String(),
   };
 }

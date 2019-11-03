@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:intl/intl.dart';
 
 import 'comment_form.dart';
 
@@ -73,9 +74,10 @@ class _ArticleScreenState extends State<ArticleScreen> {
       title: Row(
         children: <Widget>[
           CircleAvatar(
-            radius: 24.0,
+            radius: 20.0,
             backgroundImage: NetworkImage("${widget.article.author.image}"),
           ),
+          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -84,7 +86,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 style: appBarTheme.textTheme.body1,
               ),
               Text(
-                "${widget.article.createdAt.toString()}",
+                DateFormat("EEE MMM d yyyy").format(widget.article.createdAt),
                 style: Styles.text,
               ),
             ],

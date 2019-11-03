@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:conduite/models.dart';
 import 'package:conduite/store.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ class CommentForm extends StatefulWidget {
 
 class _CommentFormState extends State<CommentForm> {
   TextEditingController _controller = new TextEditingController();
+  bool loading = false;
 
   @override
   void initState() {
@@ -28,7 +31,7 @@ class _CommentFormState extends State<CommentForm> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Dispatch>(
       converter: (store) => store.dispatch,
-      builder: (context, vm) {
+      builder: (context, Dispatch dispatch) {
         return Card(
           clipBehavior: Clip.antiAlias,
           shape:
@@ -51,16 +54,33 @@ class _CommentFormState extends State<CommentForm> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Write a comment...",
-                        contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 5),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 14, horizontal: 5),
                       ),
                       keyboardType: TextInputType.multiline,
                       minLines: 1,
                       maxLines: 4),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: loading ? CircularProgressIndicator() : Icon(Icons.send),
                   onPressed: _controller.text.isNotEmpty
-                      ? () {
+                      ? () async {
+                          setState(() {
+                            loading = true;
+                          });
+                          final completer = new Completer();
+
+                          dispatch(createComment(
+                            context,
+                            widget.slug,
+                            _controller.text,
+                            completer: completer,
+                          ));
+
+                          await completer.future;
+                          setState(() {
+                            loading = false;
+                          });
                           _controller.clear();
                         }
                       : null,

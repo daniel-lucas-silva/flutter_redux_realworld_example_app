@@ -87,7 +87,7 @@ class _ProfileFeedTabState extends State<ProfileFeedTab> with AutomaticKeepAlive
                     navigateTo(context, ProfileScreen());
                   },
                   name: article.author.username,
-                  date: DateTime.parse(article.createdAt),
+                  date: article.createdAt,
                   image: getImage(article.author.image),
                   favorited: vm.isLoggedIn ? article.favorited : false,
                   favoritesCount: article.favoritesCount,
@@ -96,6 +96,7 @@ class _ProfileFeedTabState extends State<ProfileFeedTab> with AutomaticKeepAlive
                 body: ArticleTileBody(
                   title: article.title,
                   description: article.description,
+                  onTap: () {},
                 ),
                 foot: ArticleTileFoot(
                   onTap: () {},

@@ -15,7 +15,7 @@ class LoadCommentsError {
 
   LoadCommentsError(this.error);
 }
-
+class CreateCommentRequest {}
 class CreateCommentSuccess {
   final Comment comment;
 
@@ -28,7 +28,7 @@ loadComments(
   Completer completer,
 }) {
   return (Store<AppState> store) async {
-    store.dispatch(LoadArticlesRequest());
+    store.dispatch(LoadCommentsRequest());
     try {
       final json = await CommentsService.forArticle(slug);
       List<Comment> comments = (json['comments'] as List)
@@ -39,6 +39,25 @@ loadComments(
 
       if (completer != null) completer.complete();
     } catch (e) {
+      print(e.message);
+    }
+  };
+}
+
+createComment(BuildContext context, String slug, String body, { Completer completer }) {
+  return (Store<AppState> store) async {
+
+    store.dispatch(CreateCommentRequest());
+    try {
+      final json = await CommentsService.create(slug, body);
+      final comment = Comment.fromJson(json['comment']);
+      
+      store.dispatch(CreateCommentSuccess(comment));
+      
+      if(completer != null) completer.complete(comment);
+
+    } catch (e) {
+      if(completer != null) completer.completeError(e);
       print(e.message);
     }
   };

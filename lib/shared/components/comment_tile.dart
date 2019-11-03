@@ -41,7 +41,7 @@ class CommentTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text("${comment.author.username}"),
-                        Text("${comment.createdAt}", style: TextStyle(fontSize: 12, color: Colors.grey[600]),)
+                        Text(DateFormat("EEE MMM d yyyy").format(comment.createdAt), style: TextStyle(fontSize: 12, color: Colors.grey[600]),)
                       ],
                     ),
                   ),

@@ -74,8 +74,10 @@ class ArticleTileHead extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(name, style: Styles.link),
-                  Text(DateFormat("EEE MMM d yyyy").format(date),
-                      style: Styles.text),
+                  Text(
+                    DateFormat("EEE MMM d yyyy").format(date),
+                    style: Styles.text,
+                  ),
                 ],
               ),
             ),

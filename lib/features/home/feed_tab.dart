@@ -89,7 +89,7 @@ class _FeedTabState extends State<FeedTab> with AutomaticKeepAliveClientMixin {
                     navigateTo(context, ProfileScreen(author: article.author));
                   },
                   name: article.author.username,
-                  date: DateTime.parse(article.createdAt),
+                  date: article.createdAt,
                   image: getImage(article.author.image),
                   favorited: vm.isLoggedIn ? article.favorited : false,
                   favoritesCount: article.favoritesCount,
