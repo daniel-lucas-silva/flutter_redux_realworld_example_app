@@ -3,7 +3,7 @@
 > ### [Flutter](https://flutter.io/) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
 
-### [Demo](https://play.google.com/store/apps/details?id=dev.d92.conduite)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" />](https://play.google.com/store/apps/details?id=dev.d92.conduite)
 
 
 This codebase was created to demonstrate a fully fledged fullstack application built with [Flutter](https://flutter.io/) including CRUD operations, authentication, routing, pagination, and more.
